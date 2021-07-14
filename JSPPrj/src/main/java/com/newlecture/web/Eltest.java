@@ -27,8 +27,10 @@ public class Eltest extends HttpServlet {
 		list.add("LIST 테스트2");
 		list.add(result);
 		
+											// 저장되는 순서 page(Context)->request->session->application(내장객체)
+		request.setAttribute("list",list);	// request뿐 아니라 pageContext,session,application도 가능
 		
-		request.setAttribute("list",list);
+		
 		
 		Map<String,Object> map = new HashMap<>();
 		
@@ -42,8 +44,10 @@ public class Eltest extends HttpServlet {
 		
 		request.setAttribute("str", str);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("eltest.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("eltest.jsp"); // 여기서의 request는 다른 의미의 request?
 		dispatcher.forward(request, response);
+		
+		
 		
 		
 		
