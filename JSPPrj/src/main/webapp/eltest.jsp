@@ -24,7 +24,7 @@ ${pageScope.test}<br>
 ${requestScope.test}<br>
 ${sessionScope.test}<br>
 ${applicationScope.test}<br>	
-
+${param.test}
 
 </body>
 </html>

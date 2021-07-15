@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 @WebServlet("/eltest")
 public class Eltest extends HttpServlet {
@@ -29,7 +30,6 @@ public class Eltest extends HttpServlet {
 		
 											// 저장되는 순서 page(Context)->request->session->application(내장객체)
 		request.setAttribute("list",list);	// request뿐 아니라 pageContext,session,application도 가능
-		
 		
 		
 		Map<String,Object> map = new HashMap<>();
