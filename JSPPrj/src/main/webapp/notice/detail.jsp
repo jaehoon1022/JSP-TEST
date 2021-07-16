@@ -1,29 +1,52 @@
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%	
+	String id_ = request.getParameter("id");
+	int id = Integer.parseInt(id_);
+
+	String url = "jdbc:mysql://localhost/test01";
+	String sql = "SELECT * FROM NOTICE WHERE ID=?";
+	
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection con = DriverManager.getConnection(url,"root","26543434");
+	/* Statement st = con.createStatement(); */
+	PreparedStatement st = con.prepareStatement(sql);
+	st.setInt(1, id);
+	ResultSet rs = st.executeQuery();
+	
+	rs.next();
+%>
+
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
-<title>코딩 전문가를 만들기 위한 온라인 강의 시스템</title>
-<link href="/css/admin/layout.css" type="text/css" rel="stylesheet" />
-<style>
+    <title>코딩 전문가를 만들기 위한 온라인 강의 시스템</title>
+    <meta charset="UTF-8">
+    <title>공지사항목록</title>
     
-    #visual .content-container{	
-        height:inherit;
-        display:flex; 
-        align-items: center;
-        
-        background: url("/images/mypage/visual.png") no-repeat center;
-    }
-</style>
+    <link href="/css/customer/layout.css" type="text/css" rel="stylesheet" />
+    <style>
+    
+        #visual .content-container{	
+            height:inherit;
+            display:flex; 
+            align-items: center;
+            
+            background: url("../../images/customer/visual.png") no-repeat center;
+        }
+    </style>
 </head>
+
 <body>
-	<!-- header 부분 -->
-	
+    <!-- header 부분 -->
 
-
-
-
-    <header id="header">
+	<header id="header">
         
         <div class="content-container">
             <!-- ---------------------------<header>--------------------------------------- -->
@@ -42,6 +65,7 @@
                     <h1>메인메뉴</h1>
                     <ul>
                         <li><a href="/guide">학습가이드</a></li>
+
                         <li><a href="/course">강좌선택</a></li>
                         <li><a href="/answeris/index">AnswerIs</a></li>
                     </ul>
@@ -97,55 +121,113 @@
 
 			<!-- --------------------------- aside --------------------------------------- -->
 			<!-- aside 부분 -->
-			
 
 
 			<aside class="aside">
-				<h1>ADMIN PAGE</h1>
+				<h1>고객센터</h1>
 
 				<nav class="menu text-menu first margin-top">
-					<h1>마이페이지</h1>
+					<h1>고객센터메뉴</h1>
 					<ul>
-						<li><a href="/admin/index.html">관리자홈</a></li>						
-						<li><a href="/teacher/index.html">선생님페이지</a></li>
-						<li><a href="/student/index.html">수강생페이지</a></li>
+						<li><a class="current"  href="/customer/notice">공지사항</a></li>
+						<li><a class=""  href="/customer/faq">자주하는 질문</a></li>
+						<li><a class="" href="/customer/question">수강문의</a></li>
+						<li><a class="" href="/customer/event">이벤트</a></li>
+						
 					</ul>
 				</nav>
-				
-				<nav class="menu text-menu">
-					<h1>알림관리</h1>
-					<ul>						
-						<li><a href="/admin/board/notice/list.html">공지사항</a></li>				
-					</ul>
-				</nav>
-								
+
+
+	<nav class="menu">
+		<h1>협력업체</h1>
+		<ul>
+			<li><a target="_blank" href="http://www.notepubs.com"><img src="/images/notepubs.png" alt="노트펍스" /></a></li>
+			<li><a target="_blank" href="http://www.namoolab.com"><img src="/images/namoolab.png" alt="나무랩연구소" /></a></li>
+						
+		</ul>
+	</nav>
+					
 			</aside>
 			<!-- --------------------------- main --------------------------------------- -->
+
 			
-			<!-- content 부분 -->
-			
-	<main class="main">
-		<h2 class="main title">관리자홈</h2>
-		
-		<div class="breadcrumb">
-			<h3 class="hidden">breadlet</h3>
-			<ul>
-				<li>home</li>
-				<li>마이페이지</li>
-				<li>홈</li>
-			</ul>
-		</div>
-		
-		<div class="margin-top first">
-		
-		</div>
-		
-	</main>
+
+
+			<main>
+				<h2 class="main title">공지사항</h2>
+				
+				<div class="breadcrumb">
+					<h3 class="hidden">breadlet</h3>
+					<ul>
+						<li>home</li>
+						<li>고객센터</li>
+						<li>공지사항</li>
+					</ul>
+				</div>
+				
+				<div class="margin-top first">
+						<h3 class="hidden">공지사항 내용</h3>
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>제목</th>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=rs.getString("TITLE")%></td>
+								</tr>
+								<tr>
+									<th>작성일</th>
+									<td class="text-align-left text-indent" colspan="3"><%=rs.getDate("REGDATE")%></td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td><%=rs.getString("WRITER_ID")%></td>
+									<th>조회수</th>
+									<td><%=rs.getInt("HIT")%></td>
+								</tr>
+								<tr>
+									<th>첨부파일</th>
+									<td colspan="3"></td>
+								</tr>
+								<tr class="content">
+									<td colspan="4"><%=rs.getString("CONTENT")%></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="margin-top text-align-center">
+						<a class="btn btn-list" href="list.html">목록</a>
+					</div>
+					
+					<div class="margin-top">
+						<table class="table border-top-default">
+							<tbody>
+								
+								<tr>
+									<th>다음글</th>
+									<td colspan="3"  class="text-align-left text-indent">다음글이 없습니다.</td>
+								</tr>
+								
+									
+								
+								
+								<tr>
+									<th>이전글</th>
+									<td colspan="3"  class="text-align-left text-indent"><a class="text-blue text-strong" href="">스프링 DI 예제 코드</a></td>
+								</tr>
+								
+								
+							</tbody>
+						</table>
+					</div>			
+					
+			</main>		
 			
 		</div>
 	</div>
-	<!-- ------------------- <footer> --------------------------------------- -->
-	
+
+    <!-- ------------------- <footer> --------------------------------------- -->
+
+
 
         <footer id="footer">
             <div class="content-container">
@@ -177,5 +259,6 @@
                 </div>
             </div>
         </footer>
-</body>
-</html>
+    </body>
+    
+    </html>

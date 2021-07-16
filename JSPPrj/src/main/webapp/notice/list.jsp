@@ -192,11 +192,10 @@ ResultSet rs = st.executeQuery(sql);	// 쿼리를 함수를 통해 설정, 서�
 					<%while(rs.next()){%>		
 					<tr>
 						<td><%=rs.getInt("ID")%></td>
-						<td class="title indent text-align-left"><a href="detail.html"><%=rs.getString("TITLE")%></a></td>
+						<td class="title indent text-align-left"><a href="detail.jsp?id=<%=rs.getInt("ID")%>"><%=rs.getString("TITLE")%></a></td>
 						<td><%=rs.getString("WRITER_ID")%></td>
 						<td>
-							<%=rs.getDate("REGDATE")%>		
-							
+							<%=rs.getDate("REGDATE")%>	
 						</td>
 						<td><%=rs.getInt("HIT")%></td>
 					</tr>
