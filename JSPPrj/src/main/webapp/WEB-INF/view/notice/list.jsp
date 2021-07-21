@@ -1,3 +1,5 @@
+<%@page import="com.newlecture.web.entity.Notice"%>
+<%@page import="java.util.List"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -5,17 +7,7 @@
 <%@page import="java.sql.Driver"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
 
-String url = "jdbc:mysql://localhost/test01";	// 데이터베이스 호출할 주소
-String sql = "SELECT * FROM NOTICE ORDER BY ID DESC";		// 쿼리(테이블) 호출
-
-Class.forName("com.mysql.cj.jdbc.Driver");	// 6.0 이후로 cj를 사용
-Connection con = DriverManager.getConnection(url,"root","26543434");	// 연결
-Statement st  = con.createStatement();	// 실행도구
-ResultSet rs = st.executeQuery(sql);	// 쿼리를 함수를 통해 설정, 서버쪽에는 결과의 집함이 만들어짐
-
-%>
 
 <!DOCTYPE html>
 <html>
@@ -189,15 +181,19 @@ ResultSet rs = st.executeQuery(sql);	// 쿼리를 함수를 통해 설정, 서�
 						</tr>
 					</thead>
 					<tbody>
-					<%while(rs.next()){%>		
+<%
+	List<Notice> list = (List<Notice>)request.getAttribute("list");
+	for(Notice n : list){
+		pageContext.setAttribute("n", n);
+%>
 					<tr>
-						<td><%=rs.getInt("ID")%></td>
-						<td class="title indent text-align-left"><a href="detail?id=<%=rs.getInt("ID")%>"><%=rs.getString("TITLE")%></a></td>
-						<td><%=rs.getString("WRITER_ID")%></td>
+						<td>${n.id}</td>
+						<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a></td>
+						<td>${n.writerId}</td>
 						<td>
-							<%=rs.getDate("REGDATE")%>	
+							${n.regDate}
 						</td>
-						<td><%=rs.getInt("HIT")%></td>
+						<td>${n.hit}</td>
 					</tr>
 					<%}%>
 					</tbody>

@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.newlecture.web.entity.Notice;
+
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
 	
@@ -48,6 +50,8 @@ public class NoticeDetailController extends HttpServlet {
 			request.setAttribute("content", content);
 			request.setAttribute("hit", hit);
 			
+ 			Notice notice = new Notice();
+ 			
 			rs.close();
 			st.close();
 			con.close();
