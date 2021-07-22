@@ -182,7 +182,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach var="n" items="${list}">
+					<c:forEach var="n" items="${list}" begin="0" end="9">
 					<tr>
 						<td>${n.id}</td>
 						<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a></td>
@@ -204,21 +204,21 @@
 
 			<div class="margin-top align-center pager">	
 		
+	<c:set var="page" value="${(param.p == null)?1:param.p}"/>
+	<c:set var="startNum" value="${page-(page-1)%5}"/>
 	<div>
-		
 		
 		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
 		
 	</div>
 	<ul class="-list- center">
-		<li><a class="-text- orange bold" href="?p=1&t=&q=" >1</a></li>
-				
+		<c:forEach var="i" begin="0" end="4">
+		<li><a class="-text- orange bold" href="?p=${i+startNum}&t=&q=" >${i+startNum}</a></li>
+		</c:forEach>		
 	</ul>
 	<div>
 		
-		
 			<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
-		
 	</div>
 	
 			</div>
