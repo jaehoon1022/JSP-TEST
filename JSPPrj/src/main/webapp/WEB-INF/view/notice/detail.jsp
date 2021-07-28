@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
 <html>
@@ -150,24 +151,28 @@
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=request.getAttribute("title")%></td>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3">${n.title}</td>
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3"><%=request.getAttribute("regDate")%></td>
+									<td class="text-align-left text-indent" colspan="3">${n.regDate}</td>
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=request.getAttribute("writerId")%></td>
+									<td>${n.writerId}</td>
 									<th>조회수</th>
-									<td><%=request.getAttribute("hit")%></td>
+									<td>${n.hit}</td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td colspan="3"></td>
+									<td colspan="3">
+									<c:forTokens var ="fileName" items="${n.files}" delims=",">
+									<a href="${fileName}">${fileName}</a><!-- var : 내부에서 사용할 변수 varStatus : 상태용 변수 -->
+									</c:forTokens>
+									</td>
 								</tr>
 								<tr class="content">
-									<td colspan="4"><%=request.getAttribute("content")%></td>
+									<td colspan="4">${n.content}</td>
 								</tr>
 							</tbody>
 						</table>
