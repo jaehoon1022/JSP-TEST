@@ -166,8 +166,11 @@
 								<tr>
 									<th>첨부파일</th>
 									<td colspan="3">
-									<c:forTokens var ="fileName" items="${n.files}" delims=",">
+									<c:forTokens var ="fileName" items="${n.files}" delims="," varStatus="st">
 									<a href="${fileName}">${fileName}</a><!-- var : 내부에서 사용할 변수 varStatus : 상태용 변수 -->
+									<c:if test="${!st.last}" >
+									/									
+									</c:if>
 									</c:forTokens>
 									</td>
 								</tr>
