@@ -3,39 +3,60 @@ package com.hyunsense.web.service;
 import com.hyunsense.web.entity.Notice;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeService {
 
     String url = "jdbc:mysql://localhost:3306/jdbc";
 
-    public List<Notice> getNoticeList(){
+    public List<Notice> getNoticeList() throws SQLException {
 
         return getNoticeList("","",1);
     }
 
-    public List<Notice> getNoticeList(int page){
+    public List<Notice> getNoticeList(int page) throws SQLException {
 
         return getNoticeList("title","",page);
     }
 
     public List<Notice> getNoticeList(String field, String query, int page) throws SQLException {
 
-        String sql = "";
+        String sql = "SELECT * FROM NOTICE WHERE " + field + " LIKE ? " +
+                "ORDER BY ID DESC LIMIT ?,10;";
+
+
+        List<Notice> list = new ArrayList<Notice>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(url,"root","26543434");
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1,"%" + query + "%");
+            st.setInt(2,1+(page-1)*10-1);
+            ResultSet rs = st.executeQuery();
+
+            while(rs.next()){
+
+            int id = rs.getInt("ID");
+            String title = rs.getString("TITLE");
+            String writerId = rs.getString("WRITER_ID");
+            String content = rs.getString("CONTENT");
+            Date regDate = rs.getDate("REGDATE");
+            int hit = rs.getInt("HIT");
+            String files = rs.getString("FILES");
+
+            Notice notice = new Notice(id,title,writerId,content,regDate,hit,files);
+
+            list.add(notice);
+            }
 
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-
-        return null;
+        return list;
     }
 
     public int getNoticeCount(){
