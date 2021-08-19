@@ -154,7 +154,7 @@
 							<option  value="writerId">작성자</option>
 						</select> 
 						<label class="hidden">검색어</label>
-						<input type="text" name="q" value=""/>
+						<input type="text" name="q" value="${param.q}"/>
 						<input class="btn btn-search" type="submit" value="검색" />
 					</fieldset>
 				</form>
@@ -205,8 +205,8 @@
 	<c:set var="startNum" value="${page-(page%5)+1}" />
 	<c:set var="lastNum" value="23" />
 	<ul class="-list- center">
-		<c:forEach begin="0" end="4">
-		<li><a class="-text- orange bold" href="?p=1&t=&q=" >1</a></li>
+		<c:forEach var="i" begin="0" end="4">
+		<li><a class="-text- orange bold" href="?p=${startNum+i}&f=${param.f}&q=${param.q}" >${startNum+i}</a></li>
 		</c:forEach>
 				
 	</ul>
