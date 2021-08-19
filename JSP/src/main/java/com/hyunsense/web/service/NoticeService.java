@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NoticeService {
 
-    String url = "jdbc:mysql://localhost:3306/jdbc";
+    String url = "jdbc:mysql://localhost/jdbc";
 
     public List<Notice> getNoticeList() throws SQLException {
 
