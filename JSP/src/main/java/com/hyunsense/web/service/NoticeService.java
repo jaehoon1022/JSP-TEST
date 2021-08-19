@@ -15,12 +15,12 @@ public class NoticeService {
         return getNoticeList("","",1);
     }
 
-    public List<Notice> getNoticeList(int page) throws SQLException {
+    public List<Notice> getNoticeList(int page){
 
         return getNoticeList("title","",page);
     }
 
-    public List<Notice> getNoticeList(String field, String query, int page) throws SQLException {
+    public List<Notice> getNoticeList(String field, String query, int page){
 
         String sql = "SELECT * FROM NOTICE WHERE " + field + " LIKE ? " +
                 "ORDER BY ID DESC LIMIT ?,10;";
@@ -52,7 +52,7 @@ public class NoticeService {
             }
 
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
 

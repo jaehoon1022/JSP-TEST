@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -14,7 +16,7 @@
             display:flex; 
             align-items: center;
             
-            background: url("../../images/customer/visual.png") no-repeat center;
+            background: url("../../../images/customer/visual.png") no-repeat center;
         }
     </style>
 </head>
@@ -65,8 +67,8 @@
                         <h1 class="hidden">회원메뉴</h1>
                         <ul>
                             <li><a href="/index.html">HOME</a></li>
-                            <li><a href="/WEB-INF/member/login.html">로그인</a></li>
-                            <li><a href="/WEB-INF/member/agree.html">회원가입</a></li>
+                            <li><a href="/WEB-INF/view/member/login.html">로그인</a></li>
+                            <li><a href="/WEB-INF/view/member/agree.html">회원가입</a></li>
                         </ul>
                     </nav>
 
@@ -74,7 +76,7 @@
                         <h1 class="hidden">고객메뉴</h1>
                         <ul class="linear-layout">
                             <li><a href="/member/home"><img src="/images/txt-mypage.png" alt="마이페이지" /></a></li>
-                            <li><a href="/WEB-INF/notice/list.html"><img src="/images/txt-customer.png" alt="고객센터" /></a></li>
+                            <li><a href="/WEB-INF/view/notice/list.html"><img src="/images/txt-customer.png" alt="고객센터" /></a></li>
                         </ul>
                     </nav>
 

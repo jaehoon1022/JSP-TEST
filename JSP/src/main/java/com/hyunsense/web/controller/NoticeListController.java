@@ -22,10 +22,22 @@ public class NoticeListController extends HttpServlet {
         String query_ = request.getParameter("q");
 
 
-        NoticeService service = new NoticeService();
-//        List<Notice> list = service.getNoticeList();
-        
+        String field = "title";
+        if(!field_.equals("") && field_ != null)
+            field = field_;
 
+        String query = "";
+        if(!query_.equals("") && query_ != null)
+            query = query_;
+
+        int page = 1;
+        if(!page_.equals("") && page_ != null)
+            page = Integer.parseInt(page_);
+
+        NoticeService service = new NoticeService();
+        List<Notice> list = service.getNoticeList(field,query,page);
+
+        request.setAttribute("list",list);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp");
         dispatcher.forward(request,response);

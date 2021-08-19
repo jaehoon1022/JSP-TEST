@@ -201,8 +201,13 @@
 		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
 		
 	</div>
+	<c:set var="page" value="${(param.p == null)?param.p:1}" />
+	<c:set var="startNum" value="${page-(page%5)+1}" />
+	<c:set var="lastNum" value="23" />
 	<ul class="-list- center">
+		<c:forEach begin="0" end="4">
 		<li><a class="-text- orange bold" href="?p=1&t=&q=" >1</a></li>
+		</c:forEach>
 				
 	</ul>
 	<div>
