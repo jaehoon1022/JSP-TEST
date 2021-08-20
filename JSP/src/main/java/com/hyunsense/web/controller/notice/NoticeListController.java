@@ -1,4 +1,4 @@
-package com.hyunsense.web.controller;
+package com.hyunsense.web.controller.notice;
 
 import com.hyunsense.web.entity.Notice;
 import com.hyunsense.web.entity.Notice_View;
@@ -36,7 +36,7 @@ public class NoticeListController extends HttpServlet {
             page = Integer.parseInt(page_);
 
         NoticeService service = new NoticeService();
-        List<Notice_View> list = service.getNoticeList(field,query,page);
+        List<Notice_View> list = service.getNoticeViewList(field,query,page);
         int cnt = service.getNoticeCount(field,query);
 
         request.setAttribute("list",list);

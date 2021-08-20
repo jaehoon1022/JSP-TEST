@@ -11,17 +11,37 @@ public class NoticeService {
 
     String url = "jdbc:mysql://localhost/jdbc";
 
-    public List<Notice_View> getNoticeList() throws SQLException {
+    public int removeNoticeAll(int[] ids){
+        return 0;
+    }
+    public int pubNoticeAll(int[] ids){
+        return 0;
+    }
+    public int insertNotice(Notice notice){
 
-        return getNoticeList("","",1);
+        return 0;
+    }
+    public int deleteNotice(int id){
+        return 0;
+    }
+    public int updateNotice(Notice notice){
+        return 0;
+    }
+    public List<Notice> getNoticeNewestList(){
+        return null;
     }
 
-    public List<Notice_View> getNoticeList(int page){
+    public List<Notice_View> getNoticeViewList() throws SQLException {
 
-        return getNoticeList("title","",page);
+        return getNoticeViewList("","",1);
     }
 
-    public List<Notice_View> getNoticeList(String field, String query, int page){
+    public List<Notice_View> getNoticeViewList(int page){
+
+        return getNoticeViewList("title","",page);
+    }
+
+    public List<Notice_View> getNoticeViewList(String field, String query, int page){
 
         String sql = "SELECT * FROM NOTICE_VIEW WHERE " + field + " LIKE ? " +
                 "ORDER BY ID DESC LIMIT ?,10;";

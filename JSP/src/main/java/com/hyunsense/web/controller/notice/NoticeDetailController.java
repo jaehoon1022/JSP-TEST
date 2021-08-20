@@ -1,4 +1,4 @@
-package com.hyunsense.web.controller;
+package com.hyunsense.web.controller.notice;
 
 import com.hyunsense.web.entity.Notice;
 import com.hyunsense.web.service.NoticeService;
