@@ -192,17 +192,17 @@
 						</tbody>
 					</table>
 				</div>
-
+				<fmt:parseNumber var="count" value="${Math.ceil(cnt/10)}" integerOnly="true" />
 				<div class="indexer margin-top align-right">
 					<h3 class="hidden">현재 페이지</h3>
-					<div><span class="text-orange text-strong">1</span> / 1 pages</div>
+					<div><span class="text-orange text-strong">${(empty param.p)?1:param.p}</span> / ${count} pages</div>
 				</div>
 
 				<div class="margin-top align-center pager">
 
 					<c:set var="page" value="${(param.p == null)?1:param.p}"/>
 					<c:set var="startNum" value="${page-(page-1)%5}"/>
-					<c:set var="lastNum" value="23" />
+					<c:set var="lastNum" value="${count}" />
 					<div>
 						<c:if test="${startNum>1}">
 							<a href="?p=${startNum-1}&f=${param.f}&q=${param.q}" class="btn btn-prev">이전</a>
@@ -212,13 +212,19 @@
 						</c:if>
 					</div>
 					<ul class="-list- center">
+						<c:set var="done_loop" value="false" />
 						<c:forEach var="i" begin="0" end="4">
-							<li><a class="-text- orange bold" href="?p=${i+startNum}&f=${param.f}&q=${param.q}" >${i+startNum}</a></li>
+						<c:if test="${done_loop ne true}">
+						<li><a class="-text- orange bold" href="?p=${i+startNum}&f=${param.f}&q=${param.q}" >${i+startNum}</a></li>
+						</c:if>
+						<c:if test="${i+startNum == count}">
+							<c:set var="done_loop" value="true" />
+						</c:if>
 						</c:forEach>
 					</ul>
 					<div>
-						<c:if test="${startNum+5<lastNum}">
-							<a href="?p=${startNum+5}&f=${param.f}&q=$${param.q}" class="btn btn-next">다음</a>
+						<c:if test="${startNum+5<=lastNum}">
+							<a href="?p=${startNum+5}&f=${param.f}&q=${param.q}" class="btn btn-next">다음</a>
 						</c:if>
 						<c:if test="${startNum+5>lastNum}">
 							<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>

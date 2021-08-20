@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -182,7 +183,12 @@
 								
 								<tr>
 									<th>다음글</th>
+                                    <c:if test="${!empty next.id}">
+                                    <td colspan="3"  class="text-align-left text-indent"><a class="text-blue text-strong" href="?id=${next.id}">${next.title}</a></td>
+                                    </c:if>
+                                    <c:if test="${empty next.id}">
 									<td colspan="3"  class="text-align-left text-indent">다음글이 없습니다.</td>
+                                    </c:if>
 								</tr>
 								
 									
@@ -190,8 +196,13 @@
 								
 								<tr>
 									<th>이전글</th>
-									<td colspan="3"  class="text-align-left text-indent"><a class="text-blue text-strong" href="">스프링 DI 예제 코드</a></td>
-								</tr>
+                                    <c:if test="${!empty prev.id}">
+									<td colspan="3"  class="text-align-left text-indent"><a class="text-blue text-strong" href="?id=${prev.id}">${prev.title}</a></td>
+                                    </c:if>
+                                    <c:if test="${empty prev.id}">
+                                    <td colspan="3"  class="text-align-left text-indent">이전글이 없습니다.</td>
+                                    </c:if>
+                                </tr>
 								
 								
 							</tbody>

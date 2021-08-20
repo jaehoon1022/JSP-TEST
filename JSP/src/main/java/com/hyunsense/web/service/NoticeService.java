@@ -66,7 +66,26 @@ public class NoticeService {
 
     public int getNoticeCount(String field,String query){
 
-        return 0;
+        String sql = "SELECT COUNT(ID) as CNT FROM NOTICE WHERE " + field + " LIKE ? ";
+        int cnt = 0;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,"root","26543434");
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1,"%" + query + "%");
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+                cnt = rs.getInt("CNT");
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cnt;
     }
 
     public Notice getNotice(int id){
