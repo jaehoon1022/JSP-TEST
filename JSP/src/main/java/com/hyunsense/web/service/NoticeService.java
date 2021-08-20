@@ -1,6 +1,7 @@
 package com.hyunsense.web.service;
 
 import com.hyunsense.web.entity.Notice;
+import com.hyunsense.web.entity.Notice_View;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,23 +11,23 @@ public class NoticeService {
 
     String url = "jdbc:mysql://localhost/jdbc";
 
-    public List<Notice> getNoticeList() throws SQLException {
+    public List<Notice_View> getNoticeList() throws SQLException {
 
         return getNoticeList("","",1);
     }
 
-    public List<Notice> getNoticeList(int page){
+    public List<Notice_View> getNoticeList(int page){
 
         return getNoticeList("title","",page);
     }
 
-    public List<Notice> getNoticeList(String field, String query, int page){
+    public List<Notice_View> getNoticeList(String field, String query, int page){
 
-        String sql = "SELECT * FROM NOTICE WHERE " + field + " LIKE ? " +
+        String sql = "SELECT * FROM NOTICE_VIEW WHERE " + field + " LIKE ? " +
                 "ORDER BY ID DESC LIMIT ?,10;";
 
 
-        List<Notice> list = new ArrayList<Notice>();
+        List<Notice_View> list = new ArrayList<Notice_View>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -41,12 +42,13 @@ public class NoticeService {
             int id = rs.getInt("ID");
             String title = rs.getString("TITLE");
             String writerId = rs.getString("WRITER_ID");
-            String content = rs.getString("CONTENT");
+//            String content = rs.getString("CONTENT");
             Date regDate = rs.getDate("REGDATE");
             int hit = rs.getInt("HIT");
             String files = rs.getString("FILES");
+            int cnt = rs.getInt("CNT");
 
-            Notice notice = new Notice(id,title,writerId,content,regDate,hit,files);
+            Notice_View notice = new Notice_View(id,title,writerId,regDate,hit,files,cnt);
 
             list.add(notice);
             }

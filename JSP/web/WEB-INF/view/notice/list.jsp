@@ -179,7 +179,7 @@
 						<c:forEach var="n" items="${list}" begin="0" end="9">
 							<tr>
 								<td>${n.id}</td>
-								<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a></td>
+								<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a><span>[${n.cnt}]</span></td>
 								<td>${n.writerId}</td>
 								<td>
 										${n.regDate}
