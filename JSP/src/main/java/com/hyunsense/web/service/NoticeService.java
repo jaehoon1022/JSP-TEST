@@ -105,11 +105,70 @@ public class NoticeService {
 
     public Notice getNextNotice(int id){
 
-        return null;
+        Notice notice = null;
+
+        String sql = "SELECT * FROM NOTICE WHERE ID > ? LIMIT 0,1";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,"root","26543434");
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1,id);
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+
+                int nid = rs.getInt("ID");
+                String title = rs.getString("TITLE");
+                String writerId = rs.getString("WRITER_ID");
+                String content = rs.getString("CONTENT");
+                Date regDate = rs.getDate("REGDATE");
+                int hit = rs.getInt("HIT");
+                String files = rs.getString("FILES");
+
+                notice = new Notice(nid,title,writerId,content,regDate,hit,files);
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return notice;
     }
 
     public Notice getPrevNotice(int id){
 
-        return null;
+        Notice notice = null;
+
+        String sql = "SELECT * FROM NOTICE WHERE ID < ? ORDER BY ID DESC LIMIT 0,1";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,"root","26543434");
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1,id);
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+
+                int nid = rs.getInt("ID");
+                String title = rs.getString("TITLE");
+                String writerId = rs.getString("WRITER_ID");
+                String content = rs.getString("CONTENT");
+                Date regDate = rs.getDate("REGDATE");
+                int hit = rs.getInt("HIT");
+                String files = rs.getString("FILES");
+
+                notice = new Notice(nid,title,writerId,content,regDate,hit,files);
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return notice;
     }
 }
