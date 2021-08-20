@@ -215,9 +215,9 @@
 						<c:set var="done_loop" value="false" />
 						<c:forEach var="i" begin="0" end="4">
 						<c:if test="${done_loop ne true}">
-						<li><a class="-text- orange bold" href="?p=${i+startNum}&f=${param.f}&q=${param.q}" >${i+startNum}</a></li>
+						<li><a class="-text- ${(param.p == i+startNum)? "orange":""} bold" href="?p=${i+startNum}&f=${param.f}&q=${param.q}" >${i+startNum}</a></li>
 						</c:if>
-						<c:if test="${i+startNum == count}">
+						<c:if test="${i+startNum eq count}">
 							<c:set var="done_loop" value="true" />
 						</c:if>
 						</c:forEach>
