@@ -200,7 +200,7 @@
 
 				<div class="margin-top align-center pager">
 
-					<c:set var="page" value="${(param.p == null)?1:param.p}"/>
+					<c:set var="page" value="${(empty param.p)?1:param.p}"/>
 					<c:set var="startNum" value="${page-(page-1)%5}"/>
 					<c:set var="lastNum" value="${count}" />
 					<div>
@@ -215,7 +215,7 @@
 						<c:set var="done_loop" value="false" />
 						<c:forEach var="i" begin="0" end="4">
 						<c:if test="${done_loop ne true}">
-						<li><a class="-text- ${(param.p == i+startNum)? "orange":""} bold" href="?p=${i+startNum}&f=${param.f}&q=${param.q}" >${i+startNum}</a></li>
+						<li><a class="-text- ${(page == i+startNum)? 'orange':''} bold" href="?p=${i+startNum}&f=${param.f}&q=${param.q}" >${i+startNum}</a></li>
 						</c:if>
 						<c:if test="${i+startNum eq count}">
 							<c:set var="done_loop" value="true" />

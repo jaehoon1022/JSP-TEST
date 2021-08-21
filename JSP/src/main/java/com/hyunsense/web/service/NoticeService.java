@@ -11,6 +11,31 @@ public class NoticeService {
 
     String url = "jdbc:mysql://localhost/jdbc";
 
+    public int removeNoticeAll(int[] ids){
+
+        return 0;
+    }
+    public int pubNoticeAll(int[] ids){
+
+        return 0;
+    }
+    public int insertNotice(Notice notice){
+
+        return 0;
+    }
+    public int deleteNotice(int id){
+
+        return 0;
+    }
+    public int updateNotice(Notice notice){
+
+        return 0;
+    }
+    public List<Notice_View> getNoticeNewestList(){
+
+        return null;
+    }
+
     public List<Notice_View> getNoticeList() throws SQLException {
 
         return getNoticeList("","",1);

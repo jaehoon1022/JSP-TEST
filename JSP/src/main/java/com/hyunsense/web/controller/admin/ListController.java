@@ -1,4 +1,4 @@
-package com.hyunsense.web.controller.notice;
+package com.hyunsense.web.controller.admin;
 
 import com.hyunsense.web.entity.Notice;
 import com.hyunsense.web.entity.Notice_View;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/notice/list")
-public class NoticeListController extends HttpServlet {
+@WebServlet("/admin/notice/list")
+public class ListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -43,8 +43,9 @@ public class NoticeListController extends HttpServlet {
         request.setAttribute("cnt",cnt);
         System.out.println(cnt);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/admin/board/notice/list.jsp");
         dispatcher.forward(request,response);
 
     }
 }
+
