@@ -20,8 +20,27 @@ public class NoticeService {
         return 0;
     }
     public int insertNotice(Notice notice){
+        int result = 0;
 
-        return 0;
+        String sql = "INSERT INTO NOTICE(TITLE,WRITER_ID,CONTENT,FILES,PUB) " +
+                "VALUES()";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,"root","26543434");
+            PreparedStatement st = con.prepareStatement(sql);
+//            st.setString(1,);
+            st.setString(2,"hyunsense");
+
+            ResultSet rs = st.executeQuery();
+
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
     public int deleteNotice(int id){
 
@@ -216,5 +235,36 @@ public class NoticeService {
         }
 
         return notice;
+    }
+
+    public int deleteNoticeAll(int[] ids) {
+
+        int result = 0;
+
+        String params = "";
+
+        for(int i=0; i<ids.length; i++) {
+            params += ids[i];
+            if(i < ids.length-1)
+                params += ",";
+        }
+        String sql = "DELETE NOTICE WHERE ID IN ("+params+")";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,"root","26543434");
+            Statement st = con.createStatement();
+            result = st.executeUpdate(sql); // update문은 INSERT,UPDATE,DELETE 의 쿼리문을 실행할때사용
+                                                // 반환값은 정수
+
+
+            st.close();
+            con.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

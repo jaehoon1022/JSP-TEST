@@ -11,11 +11,12 @@ public class Notice {
     private Date regDate;
     private int hit;
     private String files;
+    private boolean pub;
 
     public Notice() {
     }
 
-    public Notice(int id, String title, String writerId, String content, Date regDate, int hit, String files) {
+    public Notice(int id, String title, String writerId, String content, Date regDate, int hit, String files,boolean pub) {
         this.id = id;
         this.title = title;
         this.writerId = writerId;
@@ -23,7 +24,12 @@ public class Notice {
         this.regDate = regDate;
         this.hit = hit;
         this.files = files;
+        this.pub = pub;
     }
+
+    public boolean isPub() { return pub; }
+
+    public void setPub(boolean pub) { this.pub = pub; }
 
     public int getId() { return id; }
 

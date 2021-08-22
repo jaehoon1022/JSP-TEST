@@ -190,10 +190,6 @@
 									<td colspan="3"  class="text-align-left text-indent">다음글이 없습니다.</td>
                                     </c:if>
 								</tr>
-								
-									
-								
-								
 								<tr>
 									<th>이전글</th>
                                     <c:if test="${!empty prev.id}">
@@ -203,8 +199,6 @@
                                     <td colspan="3"  class="text-align-left text-indent">이전글이 없습니다.</td>
                                     </c:if>
                                 </tr>
-								
-								
 							</tbody>
 						</table>
 					</div>			

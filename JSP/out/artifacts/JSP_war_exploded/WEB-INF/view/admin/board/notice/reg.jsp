@@ -1,6 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -68,8 +66,19 @@
                     <h1 class="hidden">회원메뉴</h1>
                     <ul>
                         <li><a href="/index.html">HOME</a></li>
-                        <li><a href="/WEB-INF/view/member/login.html">로그인</a></li>
-                        <li><a href="/WEB-INF/view/member/agree.html">회원가입</a></li>
+
+
+
+                        <li>
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="" value="" />
+                                <input type="submit" value="로그아웃"
+                                       style="border:none;background: none;vertical-align: middle;font-size: 10px;color:#979797;font-weight: bold;" />
+
+                            </form>
+                        </li>
+
+                        <li><a href="/member/agree">회원가입</a></li>
                     </ul>
                 </nav>
 
@@ -126,117 +135,51 @@
 
 
 
-        <main class="main">
-            <h2 class="main title">공지사항</h2>
+
+        <main>
+            <h2 class="main title">공지사항 등록</h2>
 
             <div class="breadcrumb">
-                <h3 class="hidden">경로</h3>
+                <h3 class="hidden">breadlet</h3>
                 <ul>
                     <li>home</li>
-                    <li>고객센터</li>
+                    <li>게시글 관리</li>
                     <li>공지사항</li>
                 </ul>
             </div>
 
-            <div class="search-form margin-top first align-right">
-                <h3 class="hidden">공지사항 검색폼</h3>
-                <form class="table-form">
-                    <fieldset>
-                        <legend class="hidden">공지사항 검색 필드</legend>
-                        <label class="hidden">검색분류</label>
-                        <select name="f">
-                            <option value="title">제목</option>
-                            <option value="writerId">작성자</option>
-                        </select>
-                        <label class="hidden">검색어</label>
-                        <input type="text" name="q" value="" />
-                        <input class="btn btn-search" type="submit" value="검색" />
-                    </fieldset>
-                </form>
-            </div>
-            <form action="list" method="post">
-                <div class="notice margin-top">
-                    <h3 class="hidden">공지사항 목록</h3>
+            <form method="post" enctype="multipart/form-data">
+                <div class="margin-top first">
+                    <h3 class="hidden">공지사항 입력</h3>
                     <table class="table">
-                        <thead>
-                        <tr>
-                            <th class="w60">번호</th>
-                            <th class="expand">제목</th>
-                            <th class="w100">작성자</th>
-                            <th class="w100">작성일</th>
-                            <th class="w60">조회수</th>
-                            <th class="w40">공개</th>
-                            <th class="w40">삭제</th>
-                        </tr>
-                        </thead>
                         <tbody>
-                        <c:forEach var="n" items="${list}" begin="0" end="9">
-                            <tr>
-                                <td>${n.id}</td>
-                                <td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a><span>[${n.cnt}]</span></td>
-                                <td>${n.writerId}</td>
-                                <td>
-                                        ${n.regDate}
-                                </td>
-                                <td>
-                                    <fmt:formatNumber value="${n.hit}" />
-                                </td>
-                                <td><input type="checkbox" name="open-id" value="${n.id}"></td>
-                                <td><input type="checkbox" name="del-id" value="${n.id}"></td>
-                            </tr>
-                        </c:forEach>
+                        <tr>
+                            <th>제목</th>
+                            <td class="text-align-left text-indent text-strong text-orange" colspan="3">
+                                <input type="text" name="title" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>첨부파일</th>
+                            <td colspan="3" class="text-align-left text-indent"><input type="file"
+                                                                                       name="file" /> </td>
+                        </tr>
+                        <tr class="content">
+                            <td colspan="4"><textarea class="content" name="content"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-align-right"><input class="vertical-align" type="checkbox" id="open" name="open" value="true"><label for="open" class="margin-left">바로공개</label> </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <fmt:parseNumber var="count" value="${Math.ceil(cnt/10)}" integerOnly="true" />
-                <div class="indexer margin-top align-right">
-                    <h3 class="hidden">현재 페이지</h3>
-                    <div><span class="text-orange text-strong">${(empty param.p)?1:param.p}</span> / ${count} pages</div>
-                </div>
-
-                <div class="text-align-right margin-top">
-                    <input type="submit" class="btn-text btn-default" name="cmd" value="일괄공개">
-                    <input type="submit" class="btn-text btn-default" name="cmd" value="일괄삭제">
-                    <a class="btn-text btn-default" href="reg">글쓰기</a>
+                <div class="margin-top text-align-center">
+                    <input class="btn-text btn-default" type="submit" value="등록" />
+                    <a class="btn-text btn-cancel" href="list">취소</a>
                 </div>
             </form>
-            <div class="margin-top align-center pager">
 
-                <c:set var="page" value="${(empty param.p)?1:param.p}"/>
-                <c:set var="startNum" value="${page-(page-1)%5}"/>
-                <c:set var="lastNum" value="${count}" />
-                <div>
-                    <c:if test="${startNum>1}">
-                        <a href="?p=${startNum-1}&f=${param.f}&q=${param.q}" class="btn btn-prev">이전</a>
-                    </c:if>
-                    <c:if test="${startNum<=1}">
-                        <span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
-                    </c:if>
-                </div>
-                <ul class="-list- center">
-                    <c:set var="done_loop" value="false" />
-                    <c:forEach var="i" begin="0" end="4">
-                        <c:if test="${done_loop ne true}">
-                            <li><a class="-text- ${(page == (i+startNum))? 'orange':''} bold" href="?p=${i+startNum}&f=${param.f}&q=${param.q}" >${i+startNum}</a></li>
-                        </c:if>
-                        <c:if test="${i+startNum eq count}">
-                            <c:set var="done_loop" value="true" />
-                        </c:if>
-                    </c:forEach>
-                </ul>
-                <div>
-                    <c:if test="${startNum+5<=lastNum}">
-                        <a href="?p=${startNum+5}&f=${param.f}&q=${param.q}" class="btn btn-next">다음</a>
-                    </c:if>
-                    <c:if test="${startNum+5>lastNum}">
-                        <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
-                    </c:if>
-                </div>
-
-            </div>
         </main>
-
-
     </div>
 </div>
 
